@@ -15,7 +15,12 @@ public class Player : MonoBehaviour
         JumpAction = Jump;
     }
 
-     private void Jump()
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();  
+    }
+
+    private void Jump()
     {
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     }
