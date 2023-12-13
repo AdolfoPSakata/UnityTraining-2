@@ -7,13 +7,19 @@ public class Player : MonoBehaviour
 {
     public UnityAction JumpAction;
 
-    [SerializeField] Rigidbody2D rb;
-    [SerializeField] float jumpForce = 10f;
+    Rigidbody2D rb;
+    [SerializeField] private float jumpForce = 10f;
 
-    Player()
+    public Player()
     {
         JumpAction = Jump;
     }
+
+    {
+    private void Die()
+        rb = GetComponent<Rigidbody2D>();
+    }
+
     private void Jump()
     {
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
