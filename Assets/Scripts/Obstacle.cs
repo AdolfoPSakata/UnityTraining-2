@@ -12,21 +12,25 @@ public class Obstacle : MonoBehaviour
     {
         while (true)
         {
-            gameObject.transform.position += Vector3.left * speed;
-            yield return new WaitForSeconds(speed);
+            gameObject.transform.position += Vector3.left * speed * Time.deltaTime;
+            yield return null;
         }
     }
+
+    private void PositionRandomizer()
+    {
+        float xPosition = gameObject.transform.position.x;
+        float yPosition = Random.Range(-2.8f, 2.8f);
+        gameObject.transform.position = new Vector3(xPosition, yPosition, 0);
+    }
+
     private void OnEnable()
     {
-        if (movement == null)
-        {
-            movement = StartCoroutine(StartMoving());
-        }
-        else
-        {
+        PositionRandomizer();
+        if (movement != null)
             StopCoroutine(movement);
-            movement = StartCoroutine(StartMoving());
-        }
+
+        movement = StartCoroutine(StartMoving());
     }
 
     private void OnDisable()
