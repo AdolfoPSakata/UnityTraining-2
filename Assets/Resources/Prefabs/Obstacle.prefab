@@ -269,4 +269,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endPoint: {fileID: 0}
-  speed: 0.01
+  speed: 1
