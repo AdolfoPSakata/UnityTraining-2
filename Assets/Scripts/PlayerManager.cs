@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
-    [SerializeField] Button testButton;
+    [SerializeField] private Button testButton;
 
 
     private void Start()
@@ -16,7 +16,7 @@ public class PlayerManager : MonoBehaviour
     {
         GameObject go = Instantiate(AssetsDatabase.prefabsDict["Player"] , Vector3.zero, Quaternion.identity);
         Player player = go.GetComponent<Player>();
-        //TODO: Comunicate with input -- THIS LINA BELOW IS FOR TESTING ONLY.
+        //TODO: Comunicate with input -- THIS LINE BELOW IS FOR TESTING ONLY.
         testButton.onClick.AddListener(player.JumpAction);
         
     }

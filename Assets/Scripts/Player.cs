@@ -15,9 +15,9 @@ public class Player : MonoBehaviour
         JumpAction = Jump;
     }
 
+    private void Awake()
     {
-    private void Die()
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();  
     }
 
     private void Jump()
