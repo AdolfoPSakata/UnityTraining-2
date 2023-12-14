@@ -1,21 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AssetsDatabase : MonoBehaviour
+public static class AssetsDatabase
 {
     public static Dictionary<string, GameObject> prefabsDict { get; private set; }
 
-    public AssetsDatabase() 
-    { 
-         InitiateDictionaries();
-    }
-
-    private void InitiateDictionaries()
+    public static void Init()
     {
         prefabsDict = CreateDictionary("Prefabs");
         
     }
-    private Dictionary<string, GameObject> CreateDictionary(string path)
+    private static Dictionary<string, GameObject> CreateDictionary(string path)
     {
         Object[] newArray = { };
         newArray = Resources.LoadAll(path);
