@@ -1042,7 +1042,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacle: {fileID: 5494144322251684709, guid: 2e668ac9b4a513d42a6deecd4923fe1b, type: 3}
-  maxObstacles: 20
-  enableInterval: 3
+  maxObstacles: 10
+  enableInterval: 5
   spawnPoint: {fileID: 386672549}
   endPoint: {fileID: 898327587}
