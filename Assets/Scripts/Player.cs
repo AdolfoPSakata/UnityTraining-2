@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(BoxCollider2D), typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
@@ -11,22 +10,17 @@ public class Player : MonoBehaviour
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float jumpForce = 10f;
-    private ScreenInputMap inputSystem;
     private EventHandler eventHandler;
 
     public void SetupPlayer(EventHandler eventHandler)
     {
         this.eventHandler = eventHandler;
-        //rb = gameObject.GetComponent<Rigidbody2D>();
         OnJump = Jump;
         OnDied = Die;
 
         eventHandler.AddEventToDict("OnDied", OnDied);
         eventHandler.AddEventToDict("OnAddedPoints", OnAddedPoints);
         eventHandler.AddEventToDict("OnJump", OnJump);
-      
-        //--------------------------------------
-       
     }
 
     private void Jump()
@@ -36,7 +30,7 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
-        inputSystem.ScreenInput.Tap.Disable();
+        
         Destroy(gameObject);
     }
 

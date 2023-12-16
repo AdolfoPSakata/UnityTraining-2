@@ -9,7 +9,6 @@ public class PlayerManager : MonoBehaviour
     int i = 0;
     public void Init(string prefabName)
     {
-        
         SpawnPlayer(prefabName);
     }
 
@@ -19,6 +18,4 @@ public class PlayerManager : MonoBehaviour
         player = go.GetComponent<Player>();
         player.SetupPlayer(eventHandler);
     }
-
-   
 }

@@ -1,18 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+
+    [SerializeField] private EventHandler eventHandler;
+    private ScreenInputMap inputSystem;
+    Action OnPlayerDefeat;
+
+    public void Init()
     {
-        
+        inputSystem = new ScreenInputMap();
+        OnPlayerDefeat = Stop;
+        eventHandler.AddEventToDict("OnPlayerDefeat", OnPlayerDefeat);
+        eventHandler.SubscribeToEvent("OnPlayerDefeat", "OnDied");
+
+        inputSystem.Enable();
+        inputSystem.ScreenInput.Tap.started += context => eventHandler.SendAction("OnJump");
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Stop()
     {
-        
+        inputSystem.ScreenInput.Tap.Disable();
     }
 }
