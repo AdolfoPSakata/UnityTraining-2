@@ -14,9 +14,11 @@ public class GameloopControler : MonoBehaviour
     void Start()
     {
         AssetsDatabase.Init();
+        ReadScriptables.Init();
+
         eventHandler.Init();
-        playerManager.Init("Player");
-        obstacleManager.Init("Obstacle");
+        playerManager.Init("Player_Base");
+        obstacleManager.Init("Obstacle_Base");
         pointManager.Init();
         inputManager.Init();
         OnPlayerDied = StopGame;
