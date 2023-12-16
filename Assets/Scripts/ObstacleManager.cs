@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -21,6 +22,7 @@ public class ObstacleManager : MonoBehaviour
 
         obstacleControl = StartCoroutine(StartMovingObstacles());
     }
+
     private void SpawnObjects(GameObject obstacle)
     {
         obstacles = new GameObject[maxObstacles];
@@ -61,7 +63,6 @@ public class ObstacleManager : MonoBehaviour
         {
             if (obj.activeInHierarchy && obj.transform.position.x < endPoint.transform.position.x)
             {
-                print(obj.transform.position.x < endPoint.transform.position.x);
                 DisableObstacle(obj);
             }
         }

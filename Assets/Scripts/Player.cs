@@ -1,24 +1,32 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(BoxCollider2D), typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
 {
-    public Action JumpAction;
-    public Action Died;
+    public Action OnAddedPoints;
+    public Action OnJump;
+    public Action OnDied;
 
-    Rigidbody2D rb;
+    [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float jumpForce = 10f;
+    private ScreenInputMap inputSystem;
+    private EventHandler eventHandler;
 
-    public Player()
+    public void SetupPlayer(EventHandler eventHandler)
     {
-        JumpAction += Jump;
-        Died += Die;
-    }
+        this.eventHandler = eventHandler;
+        //rb = gameObject.GetComponent<Rigidbody2D>();
+        OnJump = Jump;
+        OnDied = Die;
 
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody2D>();
+        eventHandler.AddEventToDict("OnDied", OnDied);
+        eventHandler.AddEventToDict("OnAddedPoints", OnAddedPoints);
+        eventHandler.AddEventToDict("OnJump", OnJump);
+      
+        //--------------------------------------
+       
     }
 
     private void Jump()
@@ -28,7 +36,7 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
-        JumpAction -= Jump;
+        inputSystem.ScreenInput.Tap.Disable();
         Destroy(gameObject);
     }
 
@@ -36,8 +44,7 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.tag == "Obstacle")
         {
-            Died.Invoke();
-            Die();
+            eventHandler.SendAction("OnDied");
         }
     }
 
@@ -45,7 +52,7 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.tag == "Obstacle")
         {
-            print("Add point");
+            eventHandler.SendAction("OnAddedPoints");
         }
     }
 }
