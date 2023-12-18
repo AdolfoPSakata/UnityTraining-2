@@ -11,7 +11,16 @@
                     "id": "a1500d44-6f08-459f-b6e9-0869d68e7c08",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Tap",
+                    "interactions": "Tap(duration=0.1,pressPoint=0.1)",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "UI",
+                    "type": "Button",
+                    "id": "a2e0f817-4460-4143-a0d5-89947ee982dc",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(pressPoint=0.1)",
                     "initialStateCheck": true
                 }
             ],
@@ -20,10 +29,21 @@
                     "name": "",
                     "id": "040d1fb7-bb29-4784-86f5-50dec5436d1f",
                     "path": "<Touchscreen>/primaryTouch/tap",
-                    "interactions": "Tap",
+                    "interactions": "Tap(duration=0.1,pressPoint=0.1)",
                     "processors": "",
                     "groups": "Touch",
                     "action": "Tap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "40e12a18-bd6f-4365-8d40-defb9aadafee",
+                    "path": "<Touchscreen>/primaryTouch/tap",
+                    "interactions": "Press(pressPoint=0.1),Tap(duration=0.1,pressPoint=0.1)",
+                    "processors": "",
+                    "groups": "Touch",
+                    "action": "UI",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

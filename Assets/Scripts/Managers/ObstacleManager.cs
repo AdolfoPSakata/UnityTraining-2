@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -13,10 +12,14 @@ public class ObstacleManager : MonoBehaviour
     private Coroutine obstacleControl;
     private int obstacleIndex = 0;
 
-    public void Init(string prefabName)
+    public void Setup(string prefabName)
     {
         obstacle = AssetsDatabase.prefabsDict[prefabName];
         SpawnObjects(obstacle);
+    }
+
+    public void Init()
+    {
         if (obstacleControl != null)
             StopCoroutine(obstacleControl);
 
@@ -48,7 +51,6 @@ public class ObstacleManager : MonoBehaviour
             obj.GetComponent<Obstacle>().StopMovement();
         }
     }
-
     private void EnableObstacle(int index)
     {
         GameObject currentObstacle = obstacles[index];

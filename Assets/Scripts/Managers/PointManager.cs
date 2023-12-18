@@ -1,16 +1,21 @@
 using System;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PointManager : MonoBehaviour
 {
     [SerializeField] private EventHandler eventHandler;
+
+    [SerializeField] private TMP_Text score;
+    [SerializeField] private Image scoreImage;
 
     public Action OnPlayerAddedPoints;
     public Action OnPlayerDeath;
 
     int currentPoints = 0;
 
-    public void Init()
+    public void Setup()
     {
         OnPlayerAddedPoints = AddPoint;
         eventHandler.AddEventToDict("OnPlayerAddedPoints", OnPlayerAddedPoints);
@@ -29,6 +34,6 @@ public class PointManager : MonoBehaviour
     private void AddPoint()
     {
         currentPoints++;
-        print(currentPoints);
+        score.text = "SCORE: " + currentPoints.ToString();
     }
 }
