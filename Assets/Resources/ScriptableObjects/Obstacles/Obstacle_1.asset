@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabName: 
   speed: 1
-  sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  spriteDown: {fileID: 21300000, guid: bbca14563d6fd3846a0523043ba74420, type: 3}
+  spriteUp: {fileID: 21300000, guid: 3bc021b2111121546aaa89444b3da0cb, type: 3}

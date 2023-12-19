@@ -19,6 +19,7 @@ public class OptionControler : MonoBehaviour
     [SerializeField] private AudioMixer masterVolume;
 
     [SerializeField] private TMP_Text strokeForce;
+    [SerializeField] private TMP_Text duckName;
 
     private int index = 0;
     private float currentVolume = 0f;
@@ -31,6 +32,8 @@ public class OptionControler : MonoBehaviour
         ReadScriptables.SetupOptions();
 
         index = PlayerPrefs.GetInt(INDEX_KEY, 0);
+        SetDuckStats();
+
         audioSlider.onValueChanged.AddListener(delegate { SliderControl(); });
         leftButton.onClick.AddListener(delegate { DuckPagination(false); });
         rightButton.onClick.AddListener(delegate { DuckPagination(true); });
@@ -69,17 +72,23 @@ public class OptionControler : MonoBehaviour
     {
         index = ChangeIndex(isAdding);
 
-        PlayerData currentData = ReadScriptables.GetPlayerData(index);
-        currentDuck = currentData.prefabName;
-        duckImage.sprite = currentData.body;
-        foodImage.sprite = currentData.body;
-        strokeForce.text = currentData.jumpForce.ToString();
+        SetDuckStats();
     }
 
     public void SliderControl()
     {
         float sliderValue = audioSlider.value;
         masterVolume.SetFloat("volume", Mathf.Log10(sliderValue) * 100);
+    }
+
+    private void SetDuckStats()
+    {
+        PlayerData currentData = ReadScriptables.GetPlayerData(index);
+        currentDuck = currentData.prefabName;
+        duckImage.sprite = currentData.fullBody;
+        foodImage.sprite = currentData.food;
+        duckName.text = currentData.prefabName;
+        strokeForce.text = currentData.jumpForce.ToString();
     }
 
     public void SetSlider()

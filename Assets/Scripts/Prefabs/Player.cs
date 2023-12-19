@@ -16,18 +16,24 @@ public class Player : MonoBehaviour
     [SerializeField] private SpriteRenderer body;
     [SerializeField] private SpriteRenderer wing_L;
     [SerializeField] private SpriteRenderer wing_R;
+    [SerializeField] private SpriteRenderer tail;
+
+    [SerializeField] private ParticleSystem blood;
+
+    [SerializeField] private Animator animator;
+
 
     private EventHandler eventHandler;
 
     public void SetupPlayer(EventHandler eventHandler)
     {
         this.eventHandler = eventHandler;
-        SetPlayerData("Player_1");
         OnJump = Jump;
         OnDied = Die;
         eventHandler.AddEventToDict("OnDied", OnDied);
         eventHandler.AddEventToDict("OnAddedPoints", OnAddedPoints);
         eventHandler.AddEventToDict("OnJump", OnJump);
+        SetPlayerData(PlayerPrefs.GetString("DUCK", "DUCK"));
 
     }
 
@@ -43,7 +49,7 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
-        Destroy(gameObject);
+        rb.simulated = false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -51,6 +57,8 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag == "Obstacle")
         {
             eventHandler.SendAction("OnDied");
+            blood.Play();
+            animator.SetBool("IsDead", true);
         }
     }
 
@@ -64,6 +72,7 @@ public class Player : MonoBehaviour
 
     private void SetPlayerData(string key)
     {
+        print(key);
         ScriptableObject so = ReadScriptables.GetScriptableObject(key);
         if (so.GetType() == typeof(PlayerData))
         {
@@ -74,6 +83,7 @@ public class Player : MonoBehaviour
             body.sprite = playerData.body;
             wing_L.sprite = playerData.wings;
             wing_R.sprite = playerData.wings;
+            tail.sprite = playerData.tail;
         }
 
     }
