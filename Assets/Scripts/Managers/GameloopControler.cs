@@ -13,16 +13,16 @@ public class GameloopControler : MonoBehaviour
     [SerializeField] private PointManager pointManager;
     [SerializeField] private InputManager inputManager;
     [SerializeField] private WallMovement wallManager;
-
+    [SerializeField] private ItensManager itensManager;
     [SerializeField] private EventHandler eventHandler;
 
     [Header("UI")]
     [SerializeField] private const int COUNTDOWN_TIME = 3;
 
-    [SerializeField] private Canvas countdownCanvas;
+    [SerializeField] private GameObject countdownCanvas;
     [SerializeField] private TMP_Text countdown;
 
-    [SerializeField] private Canvas endGameCanvas;
+    [SerializeField] private GameObject endGameCanvas;
     [SerializeField] private Button leavebutton;
     [SerializeField] private Button restartButton;
 
@@ -44,15 +44,16 @@ public class GameloopControler : MonoBehaviour
             countdown.text = i.ToString();
             yield return new WaitForSeconds(1);
         }
-        countdownCanvas.enabled = false;
+        countdownCanvas.SetActive(false);
         playerManager.Init();
         obstacleManager.Init();
         inputManager.Init();
+        itensManager.Init();
     }
     private void StopGame()
     {
         wallManager.DisableAll();
-        endGameCanvas.enabled = true;
+        endGameCanvas.SetActive(true);
         obstacleManager.DisableAll();
     }
     
@@ -70,10 +71,11 @@ public class GameloopControler : MonoBehaviour
     {
         AssetsDatabase.Setup();
         ReadScriptables.Setup();
+        ReadScriptables.SetupFoods();
         eventHandler.Setup();
-
         playerManager.Setup("Player_Base");
         obstacleManager.Setup("Obstacle_Base");
+        itensManager.Setup("Food_Base");
         pointManager.Setup();
         inputManager.Setup();
     }
@@ -87,8 +89,8 @@ public class GameloopControler : MonoBehaviour
 
     private void InitUI()
     {
-        countdownCanvas.enabled = true;
-        endGameCanvas.enabled = false;
+        countdownCanvas.SetActive(true);
+        endGameCanvas.SetActive(false);
         leavebutton.onClick.AddListener(LeaveGame);
         restartButton.onClick.AddListener(ResetGame);
     }

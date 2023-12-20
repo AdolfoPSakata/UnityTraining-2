@@ -16,8 +16,8 @@ MonoBehaviour:
   jumpForce: 12
   head: {fileID: 21300000, guid: 755e9bb623077e04db2776a5f1468bc6, type: 3}
   body: {fileID: 21300000, guid: 7193ed6ca0aa93b4692bafd74e56d20f, type: 3}
-  wings: {fileID: 21300000, guid: 455c2fb012c208c4ba7f9cee63448549, type: 3}
-  tail: {fileID: 21300000, guid: 823049f114818494b80830562207b28b, type: 3}
+  wings: {fileID: 21300000, guid: 823049f114818494b80830562207b28b, type: 3}
+  tail: {fileID: 21300000, guid: 455c2fb012c208c4ba7f9cee63448549, type: 3}
   fullBody: {fileID: 21300000, guid: 844a0fe04b2b2aa43bb7a128d3e35da4, type: 3}
-  foodName: CROIX
+  foodName: CROISSANT
   food: {fileID: 21300000, guid: 9b43153c4c7690e43ae7abb45d823ba8, type: 3}

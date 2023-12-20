@@ -16,18 +16,19 @@ public class InputManager : MonoBehaviour
         OnPlayerDefeat = Stop;
         eventHandler.AddEventToDict("OnPlayerDefeat", OnPlayerDefeat);
         eventHandler.SubscribeToEvent("OnPlayerDefeat", "OnDied");
-       
-        inputSystem.ScreenInput.Tap.started += context => eventHandler.SendAction("OnJump");
+
+        inputSystem.ScreenInput.Click.started += context => eventHandler.SendAction("OnJump");
     }
 
     public void Init()
     { 
-        inputSystem.Enable();
+        inputSystem.ScreenInput.Click.Enable();
+        //inputSystem.ScreenInput.UI.Disable();
     }
     
     private void Stop()
     {
-        inputSystem.ScreenInput.UI.Enable();
-        inputSystem.ScreenInput.Tap.Disable();
+        inputSystem.ScreenInput.Click.Disable();
+        //inputSystem.ScreenInput.UI.Enable();
     }
 }
