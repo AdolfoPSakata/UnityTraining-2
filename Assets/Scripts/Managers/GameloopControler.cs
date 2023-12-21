@@ -7,16 +7,20 @@ public class GameloopControler : MonoBehaviour
     [SerializeField] private PlayerManager playerManager;
     [SerializeField] private ObstacleManager obstacleManager;
     [SerializeField] private PointManager pointManager;
+    [SerializeField] private InputManager inputManager;
     [SerializeField] private EventHandler eventHandler;
     private Action OnPlayerDied;
 
     void Start()
     {
         AssetsDatabase.Init();
+        ReadScriptables.Init();
+
         eventHandler.Init();
-        playerManager.Init("Player");
-        obstacleManager.Init("Obstacle");
+        playerManager.Init("Player_Base");
+        obstacleManager.Init("Obstacle_Base");
         pointManager.Init();
+        inputManager.Init();
         OnPlayerDied = StopGame;
         eventHandler.AddEventToDict("OnPlayerDied", OnPlayerDied);
         eventHandler.SubscribeToEvent("OnPlayerDied", "OnDied");
@@ -24,10 +28,6 @@ public class GameloopControler : MonoBehaviour
 
     private void StopGame()
     {
-        //eventHandler.UnsubscribeToEvent("OnPlayerDied", "OnDied");
-        //eventHandler.RemoveEventToDict("OnDied");
-        //eventHandler.RemoveEventToDict("OnPlayerDied");
-        
         obstacleManager.DisableAll();
         ResetGame();
     }

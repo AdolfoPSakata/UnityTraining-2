@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(BoxCollider2D), typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
@@ -10,23 +9,26 @@ public class Player : MonoBehaviour
     public Action OnDied;
 
     [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private float jumpForce = 10f;
-    private ScreenInputMap inputSystem;
+    private float jumpForce;
+
+    [Header("SPRITES")]
+    [SerializeField] private SpriteRenderer head;
+    [SerializeField] private SpriteRenderer body;
+    [SerializeField] private SpriteRenderer wing_L;
+    [SerializeField] private SpriteRenderer wing_R;
+
     private EventHandler eventHandler;
 
     public void SetupPlayer(EventHandler eventHandler)
     {
         this.eventHandler = eventHandler;
-        //rb = gameObject.GetComponent<Rigidbody2D>();
+        SetPlayerData("Player_1");
         OnJump = Jump;
         OnDied = Die;
 
         eventHandler.AddEventToDict("OnDied", OnDied);
         eventHandler.AddEventToDict("OnAddedPoints", OnAddedPoints);
         eventHandler.AddEventToDict("OnJump", OnJump);
-      
-        //--------------------------------------
-       
     }
 
     private void Jump()
@@ -36,7 +38,7 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
-        inputSystem.ScreenInput.Tap.Disable();
+
         Destroy(gameObject);
     }
 
@@ -54,5 +56,21 @@ public class Player : MonoBehaviour
         {
             eventHandler.SendAction("OnAddedPoints");
         }
+    }
+
+    private void SetPlayerData(string key)
+    {
+        ScriptableObject so = ReadScriptables.GetScriptableObject(key);
+        if (so.GetType() == typeof(PlayerData))
+        {
+            PlayerData playerData = (PlayerData)so;
+            jumpForce = playerData.jumpForce;
+
+            head.sprite = playerData.head;
+            body.sprite = playerData.body;
+            wing_L.sprite = playerData.wings;
+            wing_R.sprite = playerData.wings;
+        }
+
     }
 }
