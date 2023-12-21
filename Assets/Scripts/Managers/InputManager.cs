@@ -19,7 +19,6 @@ public class InputManager : MonoBehaviour
 
         inputSystem.ScreenInput.Click.started += context => eventHandler.SendAction("OnJump");
     }
-
     public void Init()
     { 
         inputSystem.ScreenInput.Click.Enable();

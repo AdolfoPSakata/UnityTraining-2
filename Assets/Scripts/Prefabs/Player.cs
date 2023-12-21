@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
     [SerializeField] private ParticleSystem blood;
 
     [SerializeField] private Animator animator;
-
+    [SerializeField] private AudioSource audioSource;
 
     private EventHandler eventHandler;
 
@@ -40,7 +40,6 @@ public class Player : MonoBehaviour
         SetPlayerData(PlayerPrefs.GetString("DUCK", "DUCK"));
 
     }
-
     public void InitPlayer()
     {
         rb.simulated = true;
@@ -53,6 +52,7 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
+        audioSource.Play();
         rb.simulated = false;
     }
 
