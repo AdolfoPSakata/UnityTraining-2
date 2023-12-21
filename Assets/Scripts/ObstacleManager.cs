@@ -3,24 +3,25 @@ using UnityEngine;
 
 public class ObstacleManager : MonoBehaviour
 {
-    [SerializeField] private GameObject obstacle;
     [SerializeField] private int maxObstacles = 20;
     [SerializeField] private int enableInterval = 1;
     [SerializeField] private GameObject spawnPoint;
     [SerializeField] private GameObject endPoint;
     private GameObject[] obstacles;
+    private GameObject obstacle;
     private Coroutine obstacleControl;
     private int obstacleIndex = 0;
 
-    private void Awake()
+    public void Init(string prefabName)
     {
-        SpawnObjects();
+        obstacle = AssetsDatabase.prefabsDict[prefabName];
+        SpawnObjects(obstacle);
         if (obstacleControl != null)
             StopCoroutine(obstacleControl);
 
-        StartCoroutine(StartMovingObstacles());
+        obstacleControl = StartCoroutine(StartMovingObstacles());
     }
-    private void SpawnObjects()
+    private void SpawnObjects(GameObject obstacle)
     {
         obstacles = new GameObject[maxObstacles];
         for (int i = 0; i < maxObstacles; i++)
@@ -35,6 +36,15 @@ public class ObstacleManager : MonoBehaviour
     private void DisableObstacle(GameObject obj)
     {
         obj.SetActive(false);
+    }
+
+    public void DisableAll()
+    {
+        StopCoroutine(obstacleControl);
+        foreach (GameObject obj in obstacles)
+        {
+            obj.GetComponent<Obstacle>().StopMovement();
+        }
     }
 
     private void EnableObstacle(int index)

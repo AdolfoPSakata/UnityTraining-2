@@ -17,6 +17,11 @@ public class Obstacle : MonoBehaviour
         }
     }
 
+    public void StopMovement()
+    {
+        StopCoroutine(movement);
+    }
+
     private void PositionRandomizer()
     {
         float xPosition = gameObject.transform.position.x;
@@ -35,6 +40,6 @@ public class Obstacle : MonoBehaviour
 
     private void OnDisable()
     {
-        StopCoroutine(movement);
+        StopMovement();
     }
 }

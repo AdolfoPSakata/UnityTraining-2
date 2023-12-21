@@ -1,23 +1,24 @@
-using System.Collections;
+using System;
 using UnityEngine;
-using UnityEngine.Events;
 
 [RequireComponent(typeof(BoxCollider2D), typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
 {
-    public UnityAction JumpAction;
+    public Action JumpAction;
+    public Action Died;
 
     Rigidbody2D rb;
     [SerializeField] private float jumpForce = 10f;
 
     public Player()
     {
-        JumpAction = Jump;
+        JumpAction += Jump;
+        Died += Die;
     }
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();  
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void Jump()
@@ -27,6 +28,7 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
+        JumpAction -= Jump;
         Destroy(gameObject);
     }
 
@@ -34,7 +36,16 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.tag == "Obstacle")
         {
+            Died.Invoke();
             Die();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Obstacle")
+        {
+            print("Add point");
         }
     }
 }
