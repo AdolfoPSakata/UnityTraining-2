@@ -5,9 +5,14 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private EventHandler eventHandler;
     Player player;
 
-    public void Init(string prefabName)
+    public void Setup(string prefabName)
     {
         SpawnPlayer(prefabName);
+    }
+
+    public void Init()
+    {
+        player.InitPlayer();
     }
 
     private void SpawnPlayer(string prefabName)

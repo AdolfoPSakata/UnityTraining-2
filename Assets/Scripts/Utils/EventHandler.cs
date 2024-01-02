@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class EventHandler : MonoBehaviour, ISubscriber
 {
+
     private Dictionary<string, Action> actionDict;
-public void Init()
+    public void Setup()
     {
         actionDict = new Dictionary<string, Action>();
     }
@@ -15,7 +16,7 @@ public void Init()
     {
         if (actionDict[key] != null)
         {
-            actionDict[key].Invoke();
+            actionDict[key].DynamicInvoke();
         }
     }
     public void SubscribeToEvent(string subscriber, string target)

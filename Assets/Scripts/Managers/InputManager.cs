@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,19 +10,24 @@ public class InputManager : MonoBehaviour
     private ScreenInputMap inputSystem;
     Action OnPlayerDefeat;
 
-    public void Init()
+    public void Setup()
     {
         inputSystem = new ScreenInputMap();
         OnPlayerDefeat = Stop;
         eventHandler.AddEventToDict("OnPlayerDefeat", OnPlayerDefeat);
         eventHandler.SubscribeToEvent("OnPlayerDefeat", "OnDied");
-
-        inputSystem.Enable();
+       
         inputSystem.ScreenInput.Tap.started += context => eventHandler.SendAction("OnJump");
     }
 
+    public void Init()
+    { 
+        inputSystem.Enable();
+    }
+    
     private void Stop()
     {
+        inputSystem.ScreenInput.UI.Enable();
         inputSystem.ScreenInput.Tap.Disable();
     }
 }

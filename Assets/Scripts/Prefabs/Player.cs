@@ -25,10 +25,15 @@ public class Player : MonoBehaviour
         SetPlayerData("Player_1");
         OnJump = Jump;
         OnDied = Die;
-
         eventHandler.AddEventToDict("OnDied", OnDied);
         eventHandler.AddEventToDict("OnAddedPoints", OnAddedPoints);
         eventHandler.AddEventToDict("OnJump", OnJump);
+
+    }
+
+    public void InitPlayer()
+    {
+        rb.simulated = true;
     }
 
     private void Jump()
@@ -38,7 +43,6 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
-
         Destroy(gameObject);
     }
 

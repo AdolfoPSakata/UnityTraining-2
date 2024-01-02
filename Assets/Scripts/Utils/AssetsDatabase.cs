@@ -5,7 +5,7 @@ public static class AssetsDatabase
 {
     public static Dictionary<string, GameObject> prefabsDict { get; private set; }
 
-    public static void Init()
+    public static void Setup()
     {
         prefabsDict = CreateDictionary("Prefabs");
         
