@@ -62,7 +62,7 @@ public class Obstacle : MonoBehaviour
 
         ObstacleData obstacleData = (ObstacleData)so;
         speed = obstacleData.speed;
-        up.sprite = obstacleData.sprite;
-        down.sprite = obstacleData.sprite;
+        up.sprite = obstacleData.spriteUp;
+        down.sprite = obstacleData.spriteDown;
     }
 }

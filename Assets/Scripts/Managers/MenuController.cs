@@ -11,6 +11,8 @@ public class MenuController : MonoBehaviour
    
     private void Awake()
     {
+        PlayerPrefs.SetString("DUCK", "DUCK");
+        PlayerPrefs.Save();
         startButton.onClick.AddListener(StartGame);
         optionButton.onClick.AddListener(OpenOption); ;
         exitButton.onClick.AddListener(ExitGame); ;

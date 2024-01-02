@@ -12,6 +12,8 @@ public class GameloopControler : MonoBehaviour
     [SerializeField] private ObstacleManager obstacleManager;
     [SerializeField] private PointManager pointManager;
     [SerializeField] private InputManager inputManager;
+    [SerializeField] private WallMovement wallManager;
+
     [SerializeField] private EventHandler eventHandler;
 
     [Header("UI")]
@@ -49,6 +51,7 @@ public class GameloopControler : MonoBehaviour
     }
     private void StopGame()
     {
+        wallManager.DisableAll();
         endGameCanvas.enabled = true;
         obstacleManager.DisableAll();
     }
