@@ -6,11 +6,13 @@ public class ReadScriptables : MonoBehaviour
 {
     private static Dictionary<string, ScriptableObject> scriptableDict;
     private static Object[] playerDataArray = { };
+    private static Object[] foodDataArray = { };
 
     const string SCRIPTABLE_PATH = "ScriptableObjects/";
     const string PLAYERS_PATH = "Players";
     const string OBSTACLES_PATH = "Obstacles";
-    private static string[] pathArray = { PLAYERS_PATH, OBSTACLES_PATH };
+    const string FOOD_PATH = "Food";
+    private static string[] pathArray = { PLAYERS_PATH, OBSTACLES_PATH, FOOD_PATH };
     public static void Setup()
     {
         scriptableDict = CreateScriptableDataDict();
@@ -20,6 +22,12 @@ public class ReadScriptables : MonoBehaviour
     {
         playerDataArray = CreateSingleScriptableDataArray("Players");
     }
+
+    public static void SetupFoods()
+    {
+        foodDataArray = CreateSingleScriptableDataArray("Food");
+    }
+
     private static Dictionary<string, ScriptableObject> CreateScriptableDataDict()
     {
         Dictionary<string, ScriptableObject> newDict = new Dictionary<string, ScriptableObject>();
@@ -54,9 +62,19 @@ public class ReadScriptables : MonoBehaviour
         return (PlayerData)CastScriptable(playerDataArray, index);
     }
 
+    public static FoodData GetFoodData(int index)
+    {
+        return (FoodData)CastScriptable(foodDataArray, index);
+    }
+
     public static int GetPlayerDataLenght()
     {
         return playerDataArray.Length;
+    }
+
+    public static int GetFoodDataLenght()
+    {
+        return foodDataArray.Length;
     }
 
     public static ScriptableObject GetScriptableObject(string key)

@@ -6,10 +6,13 @@ public class Player : MonoBehaviour
 {
     public Action OnAddedPoints;
     public Action OnJump;
+    public Action OnPill;
     public Action OnDied;
+
 
     [SerializeField] private Rigidbody2D rb;
     private float jumpForce;
+    private string food;
 
     [Header("SPRITES")]
     [SerializeField] private SpriteRenderer head;
@@ -21,7 +24,7 @@ public class Player : MonoBehaviour
     [SerializeField] private ParticleSystem blood;
 
     [SerializeField] private Animator animator;
-
+    [SerializeField] private AudioSource audioSource;
 
     private EventHandler eventHandler;
 
@@ -33,10 +36,10 @@ public class Player : MonoBehaviour
         eventHandler.AddEventToDict("OnDied", OnDied);
         eventHandler.AddEventToDict("OnAddedPoints", OnAddedPoints);
         eventHandler.AddEventToDict("OnJump", OnJump);
+        eventHandler.AddEventToDict("OnPill", OnPill);
         SetPlayerData(PlayerPrefs.GetString("DUCK", "DUCK"));
 
     }
-
     public void InitPlayer()
     {
         rb.simulated = true;
@@ -49,6 +52,7 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
+        audioSource.Play();
         rb.simulated = false;
     }
 
@@ -68,6 +72,20 @@ public class Player : MonoBehaviour
         {
             eventHandler.SendAction("OnAddedPoints");
         }
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Food")
+        {
+            if (collision.gameObject.GetComponent<Food>().foodName == "PILL")
+                eventHandler.SendAction("OnPill");
+            else
+                gameObject.transform.localScale += Vector3.one * 0.1f;
+
+            Destroy(collision.gameObject);
+        }
     }
 
     private void SetPlayerData(string key)
@@ -78,7 +96,7 @@ public class Player : MonoBehaviour
         {
             PlayerData playerData = (PlayerData)so;
             jumpForce = playerData.jumpForce;
-
+            food = playerData.foodName;
             head.sprite = playerData.head;
             body.sprite = playerData.body;
             wing_L.sprite = playerData.wings;
